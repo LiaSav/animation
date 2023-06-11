@@ -1,0 +1,272 @@
+* {
+    box-sizing: border-box;
+}
+
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+@mixin section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.sketch {
+    @include section;
+
+    &__logo {
+        flex: 0 1 40%;
+    }
+}
+
+@keyframes anim-line {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+//
+$size: 40px;
+$distance: 60px;
+$duration: 5s;
+$animation: ease;
+$delay: 0s;
+$repeat: infinite;
+
+.preloader {
+    @include section;
+
+    &__wrapper {
+        position: relative;
+    }
+
+    &__wrapper,
+    &__ball {
+        width: $size;
+        height: $size;
+    }
+
+    &__ball {
+        position: absolute;
+        border-radius: 50%;
+
+        &_1 {
+            background-color: red;
+            transform: translate(0, -$distance);
+            animation: $duration $animation $delay $repeat ball-1;
+        }
+
+        &_2 {
+            background-color: green;
+            transform: translate($distance, 0);
+            animation: $duration $animation $delay $repeat ball-2;
+        }
+
+        &_3 {
+            background-color: blue;
+            transform: translate(0, $distance);
+            animation: $duration $animation $delay $repeat ball-3;
+        }
+
+        &_4 {
+            background-color: pink;
+            transform: translate(-$distance, 0);
+            animation: $duration $animation $delay $repeat ball-4;
+        }
+    }
+}
+
+@keyframes ball-1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(0, -$distance);
+    }
+
+    50% {
+        transform: translate($distance, 0);
+    }
+
+    75% {
+        transform: translate(-$distance, 0);
+    }
+}
+
+@keyframes ball-2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate($distance, 0);
+    }
+
+    50% {
+        transform: translate(0, $distance);
+    }
+
+    75% {
+        transform: translate(0, -$distance);
+    }
+}
+
+@keyframes ball-3 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(0, $distance);
+    }
+
+    50% {
+        transform: translate(-$distance, 0);
+    }
+
+    75% {
+        transform: translate($distance, 0);
+    }
+}
+
+@keyframes ball-4 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-$distance, 0);
+    }
+
+    50% {
+        transform: translate(0, -$distance);
+    }
+
+    75% {
+        transform: translate(0, $distance);
+    }
+}
+
+//
+.transition {
+    min-height: 100vh;
+
+    &__wrapper {
+        width: 700px;
+        height: 700px;
+        border: 10px solid #1F2F31;
+
+        &:hover .transition__inner {
+            // transform: translateX(100%);
+            // transition: transform 2s ease-in-out;
+            animation-play-state: paused;
+        }
+    }
+
+    &__inner {
+        width: 50%;
+        height: 50%;
+        background-color: #DFE2E1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation-name: move-circle;
+        animation-duration: 5s;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+        animation-direction: reverse;
+        animation-delay: 1s;
+        // transition: transform 1s cubic-bezier(0.41,-0.25, 0.53, 2) 1s;
+        // transition: transform 1s ease-in-out;
+    }
+}
+
+@keyframes move-circle {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(100%, 0);
+        color: white;
+        background-color: black;
+    }
+
+    50% {
+        transform: translate(100%, 100%);
+    }
+
+    75% {
+        transform: translate(0, 100%);
+    }
+}
+
+// 
+.text-animation {
+    background-color: #F2BB82;
+    @include section;
+
+    &__wrapper {
+        height: 60px;
+        background-color: #FEF8EC;
+        padding: 0 50px;
+        overflow: hidden;
+    }
+
+    &__text {
+        font-size: 38px;
+        line-height: 60px;
+        animation: slide-text 12s ease-in-out infinite;
+    }
+}
+
+@keyframes slide-text {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    16% {
+        transform: translateY(-60px);
+    }
+
+    33% {
+        transform: translateY(-120px);
+    }
+
+    50% {
+        transform: translateY(-180px);
+    }
+
+    66% {
+        transform: translateY(-120px);
+    }
+
+    82% {
+        transform: translateY(-60px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
